@@ -110,22 +110,22 @@
         .hero-logo {
             width: 480px;
             margin-bottom: 50px;
-            border-radius: 12px;
-            padding: 24px 40px;
-            background: #fff;
+        }
+        .hero-slide {
+            background: #fff !important;
         }
         .hero-tagline {
             font-family: 'Playfair Display', serif;
             font-size: 52px;
             font-weight: 400;
             line-height: 1.3;
-            color: #fff;
+            color: #1a1a1a;
             margin-bottom: 30px;
         }
         .hero-sub {
             font-size: 20px;
             font-weight: 300;
-            color: rgba(255,255,255,0.65);
+            color: rgba(0,0,0,0.55);
             line-height: 1.7;
             max-width: 750px;
             margin: 0 auto;
@@ -134,13 +134,10 @@
         /* ── Persistent Logo ── */
         .persistent-logo {
             position: fixed;
-            top: 24px;
-            right: 32px;
+            top: 28px;
+            right: 36px;
             z-index: 100;
-            height: 28px;
-            padding: 6px 14px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 6px;
+            height: 50px;
         }
 
         /* ── Section Labels ── */
@@ -411,7 +408,7 @@
             gap: 10px;
         }
         .service-list li::before {
-            content: '✓';
+            content: '\2713';
             color: #8BAFBA;
             font-weight: 700;
             font-size: 13px;
@@ -421,46 +418,8 @@
             text-decoration: line-through;
         }
         .service-list li.excluded::before {
-            content: '✕';
+            content: '\2715';
             color: rgba(255,255,255,0.2);
-        }
-
-        /* ── Our Services Overview (6 cards) ── */
-        .overview-slide {
-            width: 100%;
-            max-width: 1400px;
-        }
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 50px;
-        }
-        .overview-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .overview-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        .overview-card-body {
-            padding: 24px;
-        }
-        .overview-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .overview-card p {
-            font-size: 13px;
-            font-weight: 300;
-            color: rgba(255,255,255,0.5);
-            line-height: 1.6;
         }
 
         /* ── Specialty Spaces ── */
@@ -660,42 +619,70 @@
             width: 24px;
             border-radius: 4px;
         }
+
+        /* ── Pause Indicator ── */
+        .pause-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 200;
+            width: 80px;
+            height: 80px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .pause-indicator.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .pause-indicator svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff;
+        }
     </style>
 </head>
 <body>
 
-<img src="../photos/Transitions - Horizontal Logo (002).jpg" class="persistent-logo" alt="Transitions">
+<img src="../photos/transitions-logo-transparent.png" class="persistent-logo" alt="Transitions">
 
 <div class="slideshow" id="slideshow">
 
     <!-- SLIDE 1: Hero -->
-    <div class="slide info active" data-duration="10000">
+    <div class="slide info hero-slide active" data-duration="10000">
         <div class="slide-inner">
             <div class="hero-content">
-                <img src="../photos/Transitions - Horizontal Logo (002).jpg" class="hero-logo" alt="Transitions Kitchens, Baths & Remodeling">
+                <img src="../photos/transitions-logo-transparent.png" class="hero-logo" alt="Transitions Kitchens, Baths & Remodeling">
                 <div class="hero-tagline">One team, responsible<br>for every detail.</div>
                 <div class="hero-sub">We design, build, and install — all under one roof. Visit our 5,000 sq ft showroom, explore real materials, and get a transparent estimate before you commit a dollar.</div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 2: Photo - Flanagan Kitchen -->
+    <!-- SLIDE 2: Photo - Kangos Chevron Kitchen (TOP PICK) -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Flanagan Kitchen 430 S. Main Street Cohasset/tkb_430smain-7292.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-20.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Flanagan Kitchen</h2>
-            <div class="location">430 S. Main Street, Cohasset</div>
+            <h2>Chevron Backsplash & Contrasting Island</h2>
+            <div class="location">Main Street, Hingham</div>
         </div>
     </div>
 
-    <!-- SLIDE 3: Photo - Gordan Master Bath -->
+    <!-- SLIDE 3: Photo - Gordan Master Bath (TOP PICK) -->
     <div class="slide photo" data-duration="8000">
         <div class="bg" style="background-image: url('../photos/Gordan Master Bath/74WalnutHill-01.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Master Bathroom</div>
-            <h2>Gordan Master Bath</h2>
-            <div class="location">74 Walnut Hill, Scituate</div>
+            <h2>Industrial Glass Enclosure & Freestanding Tub</h2>
+            <div class="location">Walnut Hill, Scituate</div>
         </div>
     </div>
 
@@ -746,23 +733,23 @@
         </div>
     </div>
 
-    <!-- SLIDE 5: Photo - Clement Kitchen -->
+    <!-- SLIDE 5: Photo - Sharon Two-Tone Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Clement Kitchen 2021/61_New_Driftway-01.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Sharon House/Print/6-print-A9007211.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Clement Kitchen</h2>
-            <div class="location">61 New Driftway, Scituate</div>
+            <h2>Modern Two-Tone Cabinetry with Globe Pendants</h2>
+            <div class="location">Sharon</div>
         </div>
     </div>
 
-    <!-- SLIDE 6: Photo - Owen Master Bath -->
+    <!-- SLIDE 6: Photo - Hess Spa Master Bath -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Owen Masterbathroom 15 Baker Hill Hingham/tkb_15bakerhill-7597.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Hess Cohasset/Master Bath/Transitions_Bathroom-3.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Master Bathroom</div>
-            <h2>Owen Master Bath</h2>
-            <div class="location">15 Baker Hill, Hingham</div>
+            <h2>Spa Bath with Stone Accent Wall & Soaking Tub</h2>
+            <div class="location">Cohasset</div>
         </div>
     </div>
 
@@ -782,48 +769,48 @@
                         <div class="stat-label">Projects Completed</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">4.8<span class="star">★</span></div>
+                        <div class="stat-number">4.8<span class="star">&#9733;</span></div>
                         <div class="stat-label">Average Rating</div>
                     </div>
                 </div>
                 <div class="reviews-row">
                     <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         <div class="review-text">Craig is very meticulous and notices details before I even mention them. His design staff is top-notch and his team is extremely neat and professional.</div>
-                        <div class="review-author">Susan Weisenbeck, Hingham</div>
+                        <div class="review-author">Susan W., Hingham</div>
                     </div>
                     <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         <div class="review-text">Every detail was meticulously planned and executed. The craftsmanship is top-notch, and the project was completed on time and within budget. We highly recommend Transitions!</div>
-                        <div class="review-author">Kelly Linehan, Norwell</div>
+                        <div class="review-author">Kelly L., Norwell</div>
                     </div>
                     <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
+                        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         <div class="review-text">Amazing from start to finish. The designer was detail-oriented, pricing was clear with no hidden costs, and the team left our home clean at the end of each day.</div>
-                        <div class="review-author">Holly Hess, Cohasset</div>
+                        <div class="review-author">Holly H., Cohasset</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 8: Photo - Kangos Kitchen -->
+    <!-- SLIDE 8: Photo - Sheehan Navy Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-15.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Sheehan Kitchen Photos/Print/1_318prospectst_norwell_ma-03.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Kangos Kitchen</h2>
-            <div class="location">626 Main Street, Hingham</div>
+            <h2>Navy Island with Wood Top & Bay Window</h2>
+            <div class="location">Prospect Street, Norwell</div>
         </div>
     </div>
 
-    <!-- SLIDE 9: Photo - Marshfield Hallway -->
+    <!-- SLIDE 9: Photo - Clifford Waterfront Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-1.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Clifford Kitchen Photos/16OldFarmRd_kitchen-08.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Whole Home Remodel</div>
-            <h2>Marshfield House</h2>
-            <div class="location">1203 Ferry Hill Road, Marshfield</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>Waterfront Kitchen with Harbor Views</h2>
+            <div class="location">Old Farm Road</div>
         </div>
     </div>
 
@@ -837,28 +824,28 @@
                     <div class="comparison-col others">
                         <div class="col-title">Design Firms That Hire Out</div>
                         <div class="comp-item">
-                            <div class="comp-icon x">✕</div>
+                            <div class="comp-icon x">&#10005;</div>
                             <div>
                                 <div class="comp-item-title">Subcontractors build</div>
                                 <div class="comp-item-desc">Work is done by contractors they hire per project — people you may never meet.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon x">✕</div>
+                            <div class="comp-icon x">&#10005;</div>
                             <div>
                                 <div class="comp-item-title">Multiple companies</div>
                                 <div class="comp-item-desc">The designer coordinates separate plumbers, electricians, and carpenters. Each is their own business.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon x">✕</div>
+                            <div class="comp-icon x">&#10005;</div>
                             <div>
                                 <div class="comp-item-title">Limited accountability</div>
                                 <div class="comp-item-desc">When something goes wrong, it's often unclear who's responsible.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon x">✕</div>
+                            <div class="comp-icon x">&#10005;</div>
                             <div>
                                 <div class="comp-item-title">Inconsistent quality</div>
                                 <div class="comp-item-desc">Quality depends on which subcontractor they hired that week.</div>
@@ -868,28 +855,28 @@
                     <div class="comparison-col transitions">
                         <div class="col-title">True Design-Build at Transitions</div>
                         <div class="comp-item">
-                            <div class="comp-icon check">✓</div>
+                            <div class="comp-icon check">&#10003;</div>
                             <div>
                                 <div class="comp-item-title">One integrated in-house team</div>
                                 <div class="comp-item-desc">Our designers, project managers, carpenters, plumbers, and electricians are all Transitions employees.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon check">✓</div>
+                            <div class="comp-icon check">&#10003;</div>
                             <div>
                                 <div class="comp-item-title">Single point of accountability</div>
                                 <div class="comp-item-desc">Our founder manages every project personally. One team, one contact, one commitment.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon check">✓</div>
+                            <div class="comp-icon check">&#10003;</div>
                             <div>
                                 <div class="comp-item-title">We own every outcome</div>
                                 <div class="comp-item-desc">When you call, you reach us — not a third party. Complete ownership, zero finger-pointing.</div>
                             </div>
                         </div>
                         <div class="comp-item">
-                            <div class="comp-icon check">✓</div>
+                            <div class="comp-icon check">&#10003;</div>
                             <div>
                                 <div class="comp-item-title">Consistent craftsmanship</div>
                                 <div class="comp-item-desc">The same skilled craftsmen who built your neighbor's kitchen will build yours.</div>
@@ -901,23 +888,23 @@
         </div>
     </div>
 
-    <!-- SLIDE 11: Photo - Hartford Kitchen -->
+    <!-- SLIDE 11: Photo - O'Hara Teal Island Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Hartford Kitchen/SurplusSt_Kitchen-01.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/O%27Hara/Print/1_124woodst_milton_202600228_14.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Hartford Kitchen</h2>
-            <div class="location">Surplus Street, Hanover</div>
+            <h2>Coastal Kitchen with Teal Island & Brass Hardware</h2>
+            <div class="location">Wood Street, Milton</div>
         </div>
     </div>
 
-    <!-- SLIDE 12: Photo - Gordan Master Bath wider -->
+    <!-- SLIDE 12: Photo - Milton Gold Mosaic Bath -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Gordan Master Bath/74WalnutHill-03.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Milton Master Bathroom Norwell/944MainSt_TKB_-10.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Master Bathroom</div>
-            <h2>Gordan Master Bath</h2>
-            <div class="location">74 Walnut Hill, Scituate</div>
+            <h2>Glamorous Gold Mosaic Tile & Custom Vanity</h2>
+            <div class="location">Main Street, Norwell</div>
         </div>
     </div>
 
@@ -977,23 +964,23 @@
         </div>
     </div>
 
-    <!-- SLIDE 14: Photo - Amendola Kitchen -->
+    <!-- SLIDE 14: Photo - Flanagan Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Amendola Main Street/MainStTKB_print-1.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Flanagan Kitchen 430 S. Main Street Cohasset/tkb_430smain-7292.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Amendola Kitchen</h2>
-            <div class="location">Main Street, Norwell</div>
+            <h2>Warm Transitional Kitchen with Brass Pendants</h2>
+            <div class="location">S. Main Street, Cohasset</div>
         </div>
     </div>
 
-    <!-- SLIDE 15: Photo - Marshfield Bath -->
+    <!-- SLIDE 15: Photo - Marshfield Waterfront Living Room -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-31.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-60.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Master Bathroom</div>
-            <h2>Marshfield Master Bath</h2>
-            <div class="location">1203 Ferry Hill Road, Marshfield</div>
+            <div class="label">Whole Home Remodel</div>
+            <h2>Waterfront Living Room with Linear Fireplace</h2>
+            <div class="location">Ferry Street, Marshfield</div>
         </div>
     </div>
 
@@ -1052,13 +1039,13 @@
         </div>
     </div>
 
-    <!-- SLIDE 17: Photo - Showroom Bar -->
+    <!-- SLIDE 17: Photo - Marshfield Harbor Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/showroomBar.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-42.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Our Showroom</div>
-            <h2>Bar Display</h2>
-            <div class="location">Transitions Design Center, Norwell</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>Harbor View Kitchen with Modern Finishes</h2>
+            <div class="location">Ferry Street, Marshfield</div>
         </div>
     </div>
 
@@ -1067,7 +1054,7 @@
         <div class="slide-inner">
             <div class="spaces-slide">
                 <div class="section-label">What We Remodel</div>
-                <div class="section-title">Spaces we transform</div>
+                <div class="section-title">Other spaces we transform</div>
                 <div class="section-subtitle">Beyond kitchens and bathrooms, we design and build custom solutions for the spaces that make your home complete.</div>
                 <div class="spaces-grid">
                     <div class="space-card">
@@ -1083,7 +1070,7 @@
                         <img src="../photos/laundry.jpg" alt="Laundry Rooms">
                         <div class="space-overlay">
                             <div>
-                                <div class="space-name">Laundry Rooms</div>
+                                <div class="space-name">Laundry Rooms & Mudroom</div>
                                 <div class="space-desc">A laundry room that works as hard as you do</div>
                             </div>
                         </div>
@@ -1107,7 +1094,7 @@
                         </div>
                     </div>
                     <div class="space-card">
-                        <img src="../photos/showroomKitchen1.jpg" alt="Home Office">
+                        <img src="../photos/pantry.jpg" alt="Pantries">
                         <div class="space-overlay">
                             <div>
                                 <div class="space-name">Pantries</div>
@@ -1129,22 +1116,23 @@
         </div>
     </div>
 
-    <!-- SLIDE 19: Photo - Fireplace -->
+    <!-- SLIDE 19: Photo - Owen Marble Master Bath -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/fireplace2.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Owen Masterbathroom 15 Baker Hill Hingham/tkb_15bakerhill-7597.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Custom Built-Ins</div>
-            <h2>Fireplace & Display Shelving</h2>
+            <div class="label">Master Bathroom</div>
+            <h2>Marble Master Bath with Freestanding Tub</h2>
+            <div class="location">Baker Hill, Hingham</div>
         </div>
     </div>
 
-    <!-- SLIDE 20: Photo - Marshfield Staircase -->
+    <!-- SLIDE 20: Photo - Amendola Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-7.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Amendola Main Street/MainStTKB_print-5.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Home Addition</div>
-            <h2>Marshfield House</h2>
-            <div class="location">1203 Ferry Hill Road, Marshfield</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>Modern Kitchen with Island Seating & Pendant Lights</h2>
+            <div class="location">Main Street, Norwell</div>
         </div>
     </div>
 
@@ -1164,13 +1152,13 @@
         </div>
     </div>
 
-    <!-- SLIDE 22: Photo - Clement Kitchen Detail -->
+    <!-- SLIDE 22: Photo - Clement Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Clement Kitchen 2021/61_New_Driftway-05.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Clement Kitchen 2021/61_New_Driftway-01.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Kitchen Details</div>
-            <h2>Clement Kitchen</h2>
-            <div class="location">61 New Driftway, Scituate</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>Classic White Kitchen with Marble Countertops</h2>
+            <div class="location">New Driftway, Scituate</div>
         </div>
     </div>
 
@@ -1194,17 +1182,26 @@
         </div>
     </div>
 
-    <!-- SLIDE 24: Photo - Kangos Nook -->
+    <!-- SLIDE 24: Photo - Hartford Farmhouse Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-10.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Hartford Kitchen/SurplusSt_Kitchen-10.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Custom Dining</div>
-            <h2>Kangos Dining Nook</h2>
-            <div class="location">626 Main Street, Hingham</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>Open Farmhouse Kitchen with Professional Range</h2>
+            <div class="location">Surplus Street, Hanover</div>
         </div>
     </div>
 
-    <!-- SLIDE 25: Contact -->
+    <!-- SLIDE 25: Photo - Bar -->
+    <div class="slide photo" data-duration="8000">
+        <div class="bg" style="background-image: url('../photos/bar1.jpg')"></div>
+        <div class="photo-caption">
+            <div class="label">Custom Built-Ins</div>
+            <h2>Built-In Home Bar with LED Lighting</h2>
+        </div>
+    </div>
+
+    <!-- SLIDE 26: Contact -->
     <div class="slide info" data-duration="12000">
         <div class="slide-inner">
             <div class="cta-slide">
@@ -1215,7 +1212,7 @@
                     <div class="cta-detail">
                         <div class="cta-detail-label">Call Us Directly</div>
                         <div class="cta-detail-value">(781) 871-0881</div>
-                        <div class="cta-detail-sub">Mon–Fri 9am–5pm, Sat 9am–3pm</div>
+                        <div class="cta-detail-sub">Mon-Fri 9am-5pm, Sat 9am-3pm</div>
                     </div>
                     <div class="cta-detail">
                         <div class="cta-detail-label">Email Us</div>
@@ -1225,7 +1222,7 @@
                     <div class="cta-detail">
                         <div class="cta-detail-label">Visit Us</div>
                         <div class="cta-detail-value">433 Washington St, Norwell</div>
-                        <div class="cta-detail-sub">Walk-ins welcome · Appointments recommended</div>
+                        <div class="cta-detail-sub">Walk-ins welcome &middot; Appointments recommended</div>
                     </div>
                 </div>
             </div>
@@ -1237,23 +1234,34 @@
 <div class="progress-bar" id="progress"></div>
 <div class="slide-dots" id="dots"></div>
 
+<!-- Pause indicator -->
+<div class="pause-indicator" id="pauseIndicator">
+    <svg id="pauseIcon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    <svg id="playIcon" style="display:none" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+</div>
+
 <script>
 (function() {
     const slides = document.querySelectorAll('.slide');
     const progress = document.getElementById('progress');
     const dotsContainer = document.getElementById('dots');
+    const pauseIndicator = document.getElementById('pauseIndicator');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const playIcon = document.getElementById('playIcon');
     let current = 0;
     let timer = null;
     let progressStart = null;
     let progressDuration = 0;
     let animFrame = null;
+    let paused = false;
+    let pausedRemaining = 0;
 
-    slides.forEach((_, i) => {
-        const dot = document.createElement('div');
+    slides.forEach(function(_, i) {
+        var dot = document.createElement('div');
         dot.className = 'dot' + (i === 0 ? ' active' : '');
         dotsContainer.appendChild(dot);
     });
-    const dots = dotsContainer.querySelectorAll('.dot');
+    var dots = dotsContainer.querySelectorAll('.dot');
 
     function getDuration(index) {
         return parseInt(slides[index].getAttribute('data-duration')) || 8000;
@@ -1263,8 +1271,8 @@
         progressStart = performance.now();
         progressDuration = duration;
         function tick(now) {
-            const elapsed = now - progressStart;
-            const pct = Math.min((elapsed / progressDuration) * 100, 100);
+            var elapsed = now - progressStart;
+            var pct = Math.min((elapsed / progressDuration) * 100, 100);
             progress.style.width = pct + '%';
             progress.style.transition = 'none';
             if (pct < 100) animFrame = requestAnimationFrame(tick);
@@ -1277,32 +1285,94 @@
         clearTimeout(timer);
         cancelAnimationFrame(animFrame);
 
-        slides.forEach(s => {
-            const bg = s.querySelector('.bg');
+        slides.forEach(function(s) {
+            var bg = s.querySelector('.bg');
             if (bg) { bg.style.animation = 'none'; bg.offsetHeight; bg.style.animation = ''; }
         });
 
         slides[current].classList.remove('active');
         slides[current].classList.add('prev');
-        slides.forEach((s, i) => { if (i !== current) s.classList.remove('prev'); });
+        slides.forEach(function(s, i) { if (i !== current) s.classList.remove('prev'); });
 
         current = index;
         slides[current].classList.remove('prev');
         slides[current].classList.add('active');
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
 
-        const bg = slides[current].querySelector('.bg');
+        var bg = slides[current].querySelector('.bg');
         if (bg) bg.style.animationDuration = (getDuration(current) / 1000) + 's';
 
-        const dur = getDuration(current);
+        var dur = getDuration(current);
         progress.style.width = '0%';
         animateProgress(dur);
 
-        timer = setTimeout(() => {
-            slides.forEach(s => s.classList.remove('prev'));
-            goTo((current + 1) % slides.length);
-        }, dur);
+        if (!paused) {
+            timer = setTimeout(function() {
+                slides.forEach(function(s) { s.classList.remove('prev'); });
+                goTo((current + 1) % slides.length);
+            }, dur);
+        }
     }
+
+    function flashIndicator(showPause) {
+        pauseIcon.style.display = showPause ? 'block' : 'none';
+        playIcon.style.display = showPause ? 'none' : 'block';
+        pauseIndicator.classList.add('show');
+        setTimeout(function() { pauseIndicator.classList.remove('show'); }, 800);
+    }
+
+    function togglePause() {
+        if (!paused) {
+            paused = true;
+            clearTimeout(timer);
+            cancelAnimationFrame(animFrame);
+            var elapsed = performance.now() - progressStart;
+            pausedRemaining = Math.max(progressDuration - elapsed, 0);
+            flashIndicator(true);
+        } else {
+            paused = false;
+            progressStart = performance.now();
+            progressDuration = pausedRemaining;
+            animateProgress(pausedRemaining);
+            timer = setTimeout(function() {
+                slides.forEach(function(s) { s.classList.remove('prev'); });
+                goTo((current + 1) % slides.length);
+            }, pausedRemaining);
+            flashIndicator(false);
+        }
+    }
+
+    function nextSlide() {
+        paused = false;
+        slides.forEach(function(s) { s.classList.remove('prev'); });
+        goTo((current + 1) % slides.length);
+    }
+
+    function prevSlide() {
+        paused = false;
+        slides.forEach(function(s) { s.classList.remove('prev'); });
+        goTo((current - 1 + slides.length) % slides.length);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        switch(e.key) {
+            case ' ':
+            case 'Enter':
+                e.preventDefault();
+                togglePause();
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                e.preventDefault();
+                nextSlide();
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                e.preventDefault();
+                prevSlide();
+                break;
+        }
+    });
 
     goTo(0);
 })();

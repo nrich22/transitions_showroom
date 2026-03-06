@@ -304,13 +304,10 @@
         /* ── Persistent Logo ── */
         .persistent-logo {
             position: fixed;
-            top: 20px;
-            left: 24px;
+            top: 22px;
+            left: 28px;
             z-index: 100;
-            height: 24px;
-            padding: 5px 12px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 5px;
+            height: 36px;
         }
 
         /* ── Progress (top line) ── */
@@ -346,11 +343,39 @@
             height: 18px;
             border-radius: 3px;
         }
+
+        /* ── Pause Indicator ── */
+        .pause-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 200;
+            width: 70px;
+            height: 70px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .pause-indicator.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .pause-indicator svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
     </style>
 </head>
 <body>
 
-<img src="../photos/Transitions - Horizontal Logo (002).jpg" class="persistent-logo" alt="Transitions">
+<img src="../photos/transitions-logo-transparent.png" class="persistent-logo" alt="Transitions">
 
 <div class="slideshow" id="slideshow">
 
@@ -360,27 +385,27 @@
         <div class="photo-caption">
             <div class="label">Welcome to</div>
             <h2>Transitions Kitchens, Baths & Remodeling</h2>
-            <div class="loc">433 Washington Street, Norwell</div>
+            <div class="loc">Washington Street, Norwell</div>
         </div>
     </div>
 
-    <!-- SLIDE 2: Photo - Pizzi Kitchen -->
+    <!-- SLIDE 2: Photo - Pizzi Natural Wood Kitchen -->
     <div class="slide photo" data-duration="8000">
         <div class="bg" style="background-image: url('../photos/Pizzi Kitchen 2021/PumpkinPatch_Kitchen-01.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Pizzi Kitchen</h2>
-            <div class="loc">Pumpkin Patch Lane, Scituate</div>
+            <h2>Natural Wood & Hexagon Tile Backsplash</h2>
+            <div class="loc">Pumpkin Patch Lane, Hanover</div>
         </div>
     </div>
 
-    <!-- SLIDE 3: Photo - Milton Master Bath -->
+    <!-- SLIDE 3: Photo - Coldwell Banker Rosewood Kitchen -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Milton Master Bathroom Norwell/944MainSt_TKB_-01.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Coldwell Banker/Rosewood_TKB_Kitchen-05.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Master Bathroom</div>
-            <h2>Milton Master Bath</h2>
-            <div class="loc">944 Main Street, Norwell</div>
+            <div class="label">Kitchen Remodel</div>
+            <h2>White Shaker Kitchen with French Doors</h2>
+            <div class="loc">Rosewood, South Shore</div>
         </div>
     </div>
 
@@ -403,23 +428,23 @@
         </div>
     </div>
 
-    <!-- SLIDE 5: Photo - Hartford Kitchen -->
+    <!-- SLIDE 5: Photo - Kangos Island with Pendants -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Hartford Kitchen/SurplusSt_Kitchen-10.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-15.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Hartford Kitchen</h2>
-            <div class="loc">Surplus Street, Hanover</div>
+            <h2>Contrasting Island with Statement Pendants</h2>
+            <div class="loc">Main Street, Hingham</div>
         </div>
     </div>
 
-    <!-- SLIDE 6: Photo - Gordan Kids Bath -->
+    <!-- SLIDE 6: Photo - Hess Spa Master Bath (entry view) -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Gordan Kids Bath Scituate/74Walnut_TKB_-01.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Hess Cohasset/Master Bath/Transitions_Bathroom-1.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Kids Bathroom</div>
-            <h2>Gordan Kids Bath</h2>
-            <div class="loc">74 Walnut Hill, Scituate</div>
+            <div class="label">Master Bathroom</div>
+            <h2>Modern Spa Bath with Soaking Tub & Skylight</h2>
+            <div class="loc">Cohasset</div>
         </div>
     </div>
 
@@ -427,30 +452,30 @@
     <div class="slide info" data-duration="10000">
         <div class="inner">
             <div class="quote-slide">
-                <div class="quote-stars">★★★★★</div>
+                <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <div class="quote-text">"Every detail was meticulously planned and executed. The craftsmanship is top-notch, and the project was completed on time and within budget."</div>
-                <div class="quote-author">Kelly Linehan — Norwell, MA</div>
+                <div class="quote-author">Kelly L. — Norwell, MA</div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 8: Photo - Owen marble shower -->
+    <!-- SLIDE 8: Photo - Callahan Coastal Bathroom -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Owen Masterbathroom 15 Baker Hill Hingham/tkb_15bakerhill-7594.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Callahan Deb/hinghammeadows_bathroom-01.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Master Bathroom</div>
-            <h2>Owen Master Bath</h2>
-            <div class="loc">15 Baker Hill, Hingham</div>
+            <div class="label">Bathroom Remodel</div>
+            <h2>Coastal Double Vanity with Marble Countertop</h2>
+            <div class="loc">Hingham Meadows, Hingham</div>
         </div>
     </div>
 
-    <!-- SLIDE 9: Photo - Kangos Island -->
+    <!-- SLIDE 9: Photo - Gordan Master Bath (wider angle) -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-15.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Gordan Master Bath/74WalnutHill-03.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Kitchen Remodel</div>
-            <h2>Kangos Kitchen</h2>
-            <div class="loc">626 Main Street, Hingham</div>
+            <div class="label">Master Bathroom</div>
+            <h2>Herringbone Floor & Subway Tile Shower</h2>
+            <div class="loc">Walnut Hill, Scituate</div>
         </div>
     </div>
 
@@ -509,17 +534,27 @@
         </div>
     </div>
 
-    <!-- SLIDE 11: Photo - Marshfield hallway -->
+    <!-- SLIDE 11: Photo - Curry Peterson Spa Bathroom -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-1.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Curry and Peterson Photo/Bathroomphotos_print-1.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Whole Home Remodel</div>
-            <h2>Marshfield House</h2>
-            <div class="loc">1203 Ferry Hill Road, Marshfield</div>
+            <div class="label">Master Bathroom</div>
+            <h2>Spa Shower with Marble Tile & Glass Enclosure</h2>
+            <div class="loc">South Shore</div>
         </div>
     </div>
 
-    <!-- SLIDE 12: Split - Team -->
+    <!-- SLIDE 12: Photo - Kangos Banquette -->
+    <div class="slide photo" data-duration="8000">
+        <div class="bg" style="background-image: url('../photos/Kangos House/626MainStTKB-10.jpg')"></div>
+        <div class="photo-caption">
+            <div class="label">Custom Dining</div>
+            <h2>Built-In Banquette with Wine Storage</h2>
+            <div class="loc">Main Street, Hingham</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: Split - Team -->
     <div class="slide info" data-duration="11000">
         <div class="split">
             <img src="../photos/TKBR Team.jpg" class="split-img" alt="The Transitions Team">
@@ -538,60 +573,61 @@
         </div>
     </div>
 
-    <!-- SLIDE 13: Photo - Callahan bathroom -->
+    <!-- SLIDE 14: Photo - Marshfield Spa Bath -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Callahan Deb/hinghammeadows_bathroom-01.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-31.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Bathroom Remodel</div>
-            <h2>Callahan Bathroom</h2>
-            <div class="loc">Hingham Meadows, Hingham</div>
+            <div class="label">Master Bathroom</div>
+            <h2>Contemporary Spa with Wood Accent Wall</h2>
+            <div class="loc">Ferry Street, Marshfield</div>
         </div>
     </div>
 
-    <!-- SLIDE 14: Photo - Showroom tile studio -->
+    <!-- SLIDE 15: Photo - Marshfield Butler's Pantry -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/showroomTile.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-53.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Our Showroom</div>
-            <h2>Cabinet & Tile Selection Studio</h2>
-            <div class="loc">Transitions Design Center, Norwell</div>
+            <div class="label">Custom Built-Ins</div>
+            <h2>Matte Black Butler's Pantry</h2>
+            <div class="loc">Ferry Street, Marshfield</div>
         </div>
     </div>
 
-    <!-- SLIDE 15: Quote 2 -->
+    <!-- SLIDE 16: Quote 2 -->
     <div class="slide info" data-duration="10000">
         <div class="inner">
             <div class="quote-slide">
-                <div class="quote-stars">★★★★★</div>
+                <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                 <div class="quote-text">"Amazing from start to finish. The designer was detail-oriented, pricing was clear with no hidden costs, and the team left our home clean at the end of each day."</div>
-                <div class="quote-author">Holly Hess — Cohasset, MA</div>
+                <div class="quote-author">Holly H. — Cohasset, MA</div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 16: Photo - Fireplace -->
+    <!-- SLIDE 17: Photo - Hartford Kitchen (alternate angle) -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/fireplace2.jpg')"></div>
-        <div class="photo-caption">
-            <div class="label">Custom Built-Ins</div>
-            <h2>Fireplace & Display Shelving</h2>
-        </div>
-    </div>
-
-    <!-- SLIDE 17: Photo - Amendola kitchen -->
-    <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Amendola Main Street/MainStTKB_print-1.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Hartford Kitchen/SurplusSt_Kitchen-01.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Kitchen Remodel</div>
-            <h2>Amendola Kitchen</h2>
-            <div class="loc">Main Street, Norwell</div>
+            <h2>Soapstone Island with Professional Range</h2>
+            <div class="loc">Surplus Street, Hanover</div>
         </div>
     </div>
 
-    <!-- SLIDE 18: Split - Showroom Bar / Specialty -->
+    <!-- SLIDE 18: Photo - Hess Emerald Powder Room -->
+    <div class="slide photo" data-duration="8000">
+        <div class="bg" style="background-image: url('../photos/Hess Cohasset/Powder Room/Transitions_Bathroom-23.jpg')"></div>
+        <div class="photo-caption">
+            <div class="label">Powder Room</div>
+            <h2>Bold Emerald Vanity with Geometric Tile</h2>
+            <div class="loc">Cohasset</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 19: Split - Specialty Spaces -->
     <div class="slide info" data-duration="11000">
         <div class="split">
-            <img src="../photos/showroomBar.jpg" class="split-img" alt="Showroom Bar Display">
+            <img src="../photos/bar1.jpg" class="split-img" alt="Custom Home Bar">
             <div class="split-text">
                 <div class="label">Beyond Kitchens & Baths</div>
                 <h2>Bars. Built-ins.<br>Specialty spaces.</h2>
@@ -601,27 +637,46 @@
         </div>
     </div>
 
-    <!-- SLIDE 19: Photo - Marshfield staircase -->
+    <!-- SLIDE 20: Photo - Bugay Light Wood Bath -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-7.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Bugay Bathroom Photos/CircuitSt_Bathroom-01.jpg')"></div>
         <div class="photo-caption">
-            <div class="label">Home Addition</div>
-            <h2>Marshfield House</h2>
-            <div class="loc">1203 Ferry Hill Road, Marshfield</div>
+            <div class="label">Bathroom Remodel</div>
+            <h2>Light Wood Vanity with Modern Fixtures</h2>
+            <div class="loc">Circuit Street</div>
         </div>
     </div>
 
-    <!-- SLIDE 20: Photo - Marshfield bath -->
+    <!-- SLIDE 21: Photo - Marshfield Hallway -->
     <div class="slide photo" data-duration="8000">
-        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-31.jpg')"></div>
+        <div class="bg" style="background-image: url('../photos/Marshfield House/1203Ferry_batch1-1.jpg')"></div>
+        <div class="photo-caption">
+            <div class="label">Whole Home Remodel</div>
+            <h2>Contemporary Hallway with Wood Ceiling</h2>
+            <div class="loc">Ferry Street, Marshfield</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 22: Photo - Milton Freestanding Tub -->
+    <div class="slide photo" data-duration="8000">
+        <div class="bg" style="background-image: url('../photos/Milton Master Bathroom Norwell/944MainSt_TKB_-03.jpg')"></div>
         <div class="photo-caption">
             <div class="label">Master Bathroom</div>
-            <h2>Marshfield Master Bath</h2>
-            <div class="loc">1203 Ferry Hill Road, Marshfield</div>
+            <h2>Diamond Tile Accent Wall & Freestanding Tub</h2>
+            <div class="loc">Main Street, Norwell</div>
         </div>
     </div>
 
-    <!-- SLIDE 21: Contact -->
+    <!-- SLIDE 23: Photo - Stone Fireplace -->
+    <div class="slide photo" data-duration="8000">
+        <div class="bg" style="background-image: url('../photos/fireplace3.jpg')"></div>
+        <div class="photo-caption">
+            <div class="label">Custom Built-Ins</div>
+            <h2>Stone Fireplace with Custom Mantel</h2>
+        </div>
+    </div>
+
+    <!-- SLIDE 24: Contact -->
     <div class="slide info" data-duration="10000">
         <div class="inner">
             <div class="cta-slide">
@@ -632,7 +687,7 @@
                     <div class="cta-detail">
                         <div class="cta-detail-label">Call Us Directly</div>
                         <div class="cta-detail-value">(781) 871-0881</div>
-                        <div class="cta-detail-sub">Mon–Fri 9am–5pm, Sat 9am–3pm</div>
+                        <div class="cta-detail-sub">Mon-Fri 9am-5pm, Sat 9am-3pm</div>
                     </div>
                     <div class="cta-detail">
                         <div class="cta-detail-label">Email Us</div>
@@ -642,7 +697,7 @@
                     <div class="cta-detail">
                         <div class="cta-detail-label">Visit Us</div>
                         <div class="cta-detail-value">433 Washington St, Norwell</div>
-                        <div class="cta-detail-sub">Walk-ins welcome · Appointments recommended</div>
+                        <div class="cta-detail-sub">Walk-ins welcome &middot; Appointments recommended</div>
                     </div>
                 </div>
             </div>
@@ -654,23 +709,34 @@
 <div class="progress-line" id="progress"></div>
 <div class="progress-dots" id="dots"></div>
 
+<!-- Pause indicator -->
+<div class="pause-indicator" id="pauseIndicator">
+    <svg id="pauseIcon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    <svg id="playIcon" style="display:none" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+</div>
+
 <script>
 (function() {
-    const slides = document.querySelectorAll('.slide');
-    const progress = document.getElementById('progress');
-    const dotsContainer = document.getElementById('dots');
-    let current = 0;
-    let timer = null;
-    let progressStart = null;
-    let progressDuration = 0;
-    let animFrame = null;
+    var slides = document.querySelectorAll('.slide');
+    var progress = document.getElementById('progress');
+    var dotsContainer = document.getElementById('dots');
+    var pauseIndicator = document.getElementById('pauseIndicator');
+    var pauseIcon = document.getElementById('pauseIcon');
+    var playIcon = document.getElementById('playIcon');
+    var current = 0;
+    var timer = null;
+    var progressStart = null;
+    var progressDuration = 0;
+    var animFrame = null;
+    var paused = false;
+    var pausedRemaining = 0;
 
-    slides.forEach((_, i) => {
-        const dot = document.createElement('div');
+    slides.forEach(function(_, i) {
+        var dot = document.createElement('div');
         dot.className = 'pdot' + (i === 0 ? ' active' : '');
         dotsContainer.appendChild(dot);
     });
-    const dots = dotsContainer.querySelectorAll('.pdot');
+    var dots = dotsContainer.querySelectorAll('.pdot');
 
     function getDuration(index) {
         return parseInt(slides[index].getAttribute('data-duration')) || 8000;
@@ -680,8 +746,8 @@
         progressStart = performance.now();
         progressDuration = duration;
         function tick(now) {
-            const elapsed = now - progressStart;
-            const pct = Math.min((elapsed / progressDuration) * 100, 100);
+            var elapsed = now - progressStart;
+            var pct = Math.min((elapsed / progressDuration) * 100, 100);
             progress.style.width = pct + '%';
             progress.style.transition = 'none';
             if (pct < 100) animFrame = requestAnimationFrame(tick);
@@ -694,32 +760,94 @@
         clearTimeout(timer);
         cancelAnimationFrame(animFrame);
 
-        slides.forEach(s => {
-            const bg = s.querySelector('.bg');
+        slides.forEach(function(s) {
+            var bg = s.querySelector('.bg');
             if (bg) { bg.style.animation = 'none'; bg.offsetHeight; bg.style.animation = ''; }
         });
 
         slides[current].classList.remove('active');
         slides[current].classList.add('prev');
-        slides.forEach((s, i) => { if (i !== current) s.classList.remove('prev'); });
+        slides.forEach(function(s, i) { if (i !== current) s.classList.remove('prev'); });
 
         current = index;
         slides[current].classList.remove('prev');
         slides[current].classList.add('active');
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
 
-        const bg = slides[current].querySelector('.bg');
+        var bg = slides[current].querySelector('.bg');
         if (bg) bg.style.animationDuration = (getDuration(current) / 1000) + 's';
 
-        const dur = getDuration(current);
+        var dur = getDuration(current);
         progress.style.width = '0%';
         animateProgress(dur);
 
-        timer = setTimeout(() => {
-            slides.forEach(s => s.classList.remove('prev'));
-            goTo((current + 1) % slides.length);
-        }, dur);
+        if (!paused) {
+            timer = setTimeout(function() {
+                slides.forEach(function(s) { s.classList.remove('prev'); });
+                goTo((current + 1) % slides.length);
+            }, dur);
+        }
     }
+
+    function flashIndicator(showPause) {
+        pauseIcon.style.display = showPause ? 'block' : 'none';
+        playIcon.style.display = showPause ? 'none' : 'block';
+        pauseIndicator.classList.add('show');
+        setTimeout(function() { pauseIndicator.classList.remove('show'); }, 800);
+    }
+
+    function togglePause() {
+        if (!paused) {
+            paused = true;
+            clearTimeout(timer);
+            cancelAnimationFrame(animFrame);
+            var elapsed = performance.now() - progressStart;
+            pausedRemaining = Math.max(progressDuration - elapsed, 0);
+            flashIndicator(true);
+        } else {
+            paused = false;
+            progressStart = performance.now();
+            progressDuration = pausedRemaining;
+            animateProgress(pausedRemaining);
+            timer = setTimeout(function() {
+                slides.forEach(function(s) { s.classList.remove('prev'); });
+                goTo((current + 1) % slides.length);
+            }, pausedRemaining);
+            flashIndicator(false);
+        }
+    }
+
+    function nextSlide() {
+        paused = false;
+        slides.forEach(function(s) { s.classList.remove('prev'); });
+        goTo((current + 1) % slides.length);
+    }
+
+    function prevSlide() {
+        paused = false;
+        slides.forEach(function(s) { s.classList.remove('prev'); });
+        goTo((current - 1 + slides.length) % slides.length);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        switch(e.key) {
+            case ' ':
+            case 'Enter':
+                e.preventDefault();
+                togglePause();
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                e.preventDefault();
+                nextSlide();
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                e.preventDefault();
+                prevSlide();
+                break;
+        }
+    });
 
     goTo(0);
 })();

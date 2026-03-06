@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transitions — Showroom Display (45")</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2e3b;
+    --navy-mid: #213748;
+    --teal: #4a8fa8;
+    --teal-light: #6ab4cc;
+    --teal-glow: rgba(74,143,168,0.15);
+    --cream: #f5f0e8;
+    --gold: #c9a96e;
+    --dark: #0d1b24;
+    --text-muted: rgba(255,255,255,0.55);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--dark);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+  }
+
+  .slideshow {
+    width: 100vw; height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+  }
+  .slide.active { opacity: 1; }
+
+  /* Progress dots */
+  .dots {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .dot.active {
+    background: var(--teal);
+    transform: scale(1.4);
+  }
+
+  /* Logo */
+  .logo-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(13,27,36,0.95);
+    border-bottom: 1px solid rgba(74,143,168,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+  }
+  .logo-bar .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.9;
+  }
+  .logo-bar .teal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    margin-right: 14px;
+  }
+
+  /* ─── SHARED ELEMENTS ─── */
+  .eyebrow {
+    font-size: clamp(10px, 1.1vw, 14px);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 68px);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .section-title em { color: var(--teal-light); font-style: italic; }
+  .section-sub {
+    font-size: clamp(13px, 1.4vw, 18px);
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 560px;
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .rule {
+    width: 48px;
+    height: 2px;
+    background: var(--teal);
+    margin: 0 auto 28px;
+  }
+
+  /* ─── SLIDE 1: What We Do Different ─── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+    max-width: 900px;
+  }
+  .compare-col {
+    padding: 28px 32px;
+  }
+  .compare-col.bad {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-right: none;
+  }
+  .compare-col.good {
+    background: rgba(74,143,168,0.1);
+    border: 1px solid rgba(74,143,168,0.25);
+  }
+  .compare-col-header {
+    font-size: clamp(10px, 1.1vw, 14px);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .compare-col.bad .compare-col-header { color: rgba(255,255,255,0.35); }
+  .compare-col.good .compare-col-header { color: var(--teal-light); }
+  .compare-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: clamp(12px, 1.2vw, 15px);
+    line-height: 1.45;
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+  .compare-col.bad .icon { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+  .compare-col.good .icon { background: var(--teal); color: white; }
+  .compare-col.bad .compare-row { color: rgba(255,255,255,0.4); }
+  .compare-col.good .compare-row { color: rgba(255,255,255,0.9); }
+
+  /* ─── SLIDE 2: Kitchen Services ─── */
+  .service-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .tier-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .tier-card.featured {
+    background: rgba(74,143,168,0.12);
+    border-color: rgba(74,143,168,0.4);
+  }
+  .tier-card .badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    color: white;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 14px;
+    white-space: nowrap;
+  }
+  .tier-card .tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.2vw, 28px);
+    color: white;
+    margin-bottom: 6px;
+    margin-top: 8px;
+  }
+  .tier-card .tier-tagline {
+    font-size: clamp(10px, 1vw, 13px);
+    color: var(--teal-light);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .tier-card .tier-items {
+    list-style: none;
+  }
+  .tier-card .tier-items li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: clamp(11px, 1.1vw, 14px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    line-height: 1.3;
+  }
+  .tier-card .tier-items li:last-child { border-bottom: none; }
+  .tier-card .tier-items li.has { color: rgba(255,255,255,0.85); }
+  .tier-card .tier-items li.has::before {
+    content: '✓';
+    color: var(--teal);
+    font-size: 11px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .tier-card .tier-items li.no { color: rgba(255,255,255,0.25); text-decoration: line-through; }
+  .tier-card .tier-items li.no::before {
+    content: '✕';
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 3: Bathroom Services ─── */
+  /* reuses .service-tiers and .tier-card */
+
+  /* ─── SLIDE 4: Other Services Grid ─── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 960px;
+  }
+  .service-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    transition: background 0.3s;
+  }
+  .service-box:hover {
+    background: var(--teal-glow);
+    border-color: rgba(74,143,168,0.3);
+  }
+  .service-box .svc-icon {
+    width: 44px; height: 44px;
+    background: rgba(74,143,168,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .service-box .svc-name {
+    font-size: clamp(13px, 1.3vw, 16px);
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+  }
+  .service-box .svc-desc {
+    font-size: clamp(10px, 1vw, 13px);
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* ─── SLIDE 5: Single Differentiator (animated) ─── */
+  .diff-slide {
+    position: relative;
+    overflow: hidden;
+  }
+  .diff-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(74,143,168,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .diff-card {
+    width: 100%;
+    max-width: 780px;
+    text-align: center;
+  }
+  .diff-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(100px, 16vw, 180px);
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .diff-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5.5vw, 72px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .diff-main em { color: var(--teal-light); font-style: italic; }
+  .diff-body {
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .slide.active .eyebrow { animation: slideUp 0.7s ease 0.2s both; }
+  .slide.active .section-title { animation: slideUp 0.8s ease 0.35s both; }
+  .slide.active .rule { animation: fadeIn 0.6s ease 0.4s both; }
+  .slide.active .section-sub { animation: slideUp 0.7s ease 0.5s both; }
+  .slide.active .compare-grid { animation: slideUp 0.9s ease 0.5s both; }
+  .slide.active .service-tiers { animation: slideUp 0.9s ease 0.5s both; }
+  .slide.active .services-grid { animation: slideUp 0.9s ease 0.5s both; }
+  .slide.active .diff-card { animation: slideUp 0.9s ease 0.3s both; }
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <div class="teal-dot"></div>
+  <div class="name">Transitions</div>
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- SLIDE 1: What We Do Different -->
+  <div class="slide" data-duration="12000">
+    <div class="eyebrow">True Design-Build</div>
+    <div class="section-title">Most design firms<br>don't build. <em>We do.</em></div>
+    <div class="rule"></div>
+    <div class="section-sub">We eliminated the designer/contractor gap 20 years ago.</div>
+    <div class="compare-grid">
+      <div class="compare-col bad">
+        <div class="compare-col-header">Design Firms That Hire Out</div>
+        <div class="compare-row"><div class="icon">✕</div>Designers sell, subcontractors build</div>
+        <div class="compare-row"><div class="icon">✕</div>Coordination across multiple companies</div>
+        <div class="compare-row"><div class="icon">✕</div>Limited accountability when issues arise</div>
+        <div class="compare-row"><div class="icon">✕</div>Inconsistent quality control</div>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-col-header">True Design-Build at Transitions</div>
+        <div class="compare-row"><div class="icon">✓</div>One integrated in-house team</div>
+        <div class="compare-row"><div class="icon">✓</div>Single point of accountability</div>
+        <div class="compare-row"><div class="icon">✓</div>We own every outcome</div>
+        <div class="compare-row"><div class="icon">✓</div>Consistent craftsmanship — same crew every time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Kitchen Services -->
+  <div class="slide" data-duration="12000">
+    <div class="eyebrow">Our Kitchen Services</div>
+    <div class="section-title">Three ways<br>we can <em>help</em></div>
+    <div class="rule"></div>
+    <div class="service-tiers">
+      <div class="tier-card">
+        <div class="tier-name">Materials Only</div>
+        <div class="tier-tagline">Quality cabinets & countertops, delivered to you</div>
+        <ul class="tier-items">
+          <li class="has">Showroom consultation</li>
+          <li class="has">Custom kitchen design & layout</li>
+          <li class="has">Custom & semi-custom cabinetry</li>
+          <li class="has">Hardware & accessories</li>
+          <li class="has">Quality inspection & delivery</li>
+          <li class="no">Installation</li>
+          <li class="no">Construction or demolition</li>
+        </ul>
+      </div>
+      <div class="tier-card featured">
+        <div class="badge">Our Specialty</div>
+        <div class="tier-name">Kitchen Remodel</div>
+        <div class="tier-tagline">Complete design-build, one team start to finish</div>
+        <ul class="tier-items">
+          <li class="has">Custom layout & space planning</li>
+          <li class="has">Custom & semi-custom cabinetry</li>
+          <li class="has">Countertop selection & install</li>
+          <li class="has">Backsplash & tile design</li>
+          <li class="has">Electrical & plumbing</li>
+          <li class="has">Flooring & lighting</li>
+          <li class="has">Project management & warranty</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Materials & Install</div>
+        <div class="tier-tagline">We supply and install — you skip the hassle</div>
+        <ul class="tier-items">
+          <li class="has">Custom kitchen design & layout</li>
+          <li class="has">Custom & semi-custom cabinetry</li>
+          <li class="has">Countertop selection & install</li>
+          <li class="has">Professional cabinet installation</li>
+          <li class="has">Basic plumbing hookup</li>
+          <li class="no">Electrical or structural work</li>
+          <li class="no">Full construction or demolition</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Differentiator callout -->
+  <div class="slide diff-slide" data-duration="8000">
+    <div class="diff-number">0</div>
+    <div class="diff-card">
+      <div class="eyebrow">Our Promise</div>
+      <div class="diff-main">Zero<br><em>subcontractors.</em><br>Ever.</div>
+      <div class="diff-body">Our designers, project managers, carpenters, plumbers, and electricians are all Transitions employees. They work together every single day — on your project.</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Bathroom Services -->
+  <div class="slide" data-duration="12000">
+    <div class="eyebrow">Our Bathroom Services</div>
+    <div class="section-title">Three ways<br>we can <em>help</em></div>
+    <div class="rule"></div>
+    <div class="service-tiers">
+      <div class="tier-card">
+        <div class="tier-name">Vanities & Countertops</div>
+        <div class="tier-tagline">Premium materials, designed and delivered</div>
+        <ul class="tier-items">
+          <li class="has">Showroom consultation</li>
+          <li class="has">Custom vanity design</li>
+          <li class="has">Premium countertop selection</li>
+          <li class="has">Quality inspection & delivery</li>
+          <li class="no">Installation</li>
+          <li class="no">Construction or tile work</li>
+        </ul>
+      </div>
+      <div class="tier-card featured">
+        <div class="badge">Our Specialty</div>
+        <div class="tier-name">Bathroom Remodel</div>
+        <div class="tier-tagline">Complete design-build, one team start to finish</div>
+        <ul class="tier-items">
+          <li class="has">Custom layout & space planning</li>
+          <li class="has">Custom & semi-custom cabinetry</li>
+          <li class="has">Countertop selection & install</li>
+          <li class="has">Backsplash & tile design</li>
+          <li class="has">Electrical & plumbing</li>
+          <li class="has">Flooring & lighting</li>
+          <li class="has">Project management & warranty</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Bathroom Refresh</div>
+        <div class="tier-tagline">New finishes, same footprint</div>
+        <ul class="tier-items">
+          <li class="has">Custom & semi-custom cabinetry</li>
+          <li class="has">Countertop selection & install</li>
+          <li class="has">Professional cabinet installation</li>
+          <li class="has">Tile & flooring</li>
+          <li class="has">Fixtures & lighting</li>
+          <li class="no">Layout changes</li>
+          <li class="no">Plumbing or electrical relocation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Other Services -->
+  <div class="slide" data-duration="11000">
+    <div class="eyebrow">Beyond Kitchens & Bathrooms</div>
+    <div class="section-title">Every room<br>in your <em>home</em></div>
+    <div class="rule"></div>
+    <div class="section-sub">One team. Every space. Start to finish.</div>
+    <div class="services-grid">
+      <div class="service-box">
+        <div class="svc-icon">🏗️</div>
+        <div class="svc-name">Home Additions</div>
+        <div class="svc-desc">Expand your home — feels like it was always there</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🚪</div>
+        <div class="svc-name">Mudrooms</div>
+        <div class="svc-desc">Functional entryways, beautifully built</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🍷</div>
+        <div class="svc-name">Bars & Entertainment</div>
+        <div class="svc-desc">Custom built-ins and wet bars</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🧺</div>
+        <div class="svc-name">Laundry Rooms</div>
+        <div class="svc-desc">Hardworking spaces that work as hard as you do</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🗄️</div>
+        <div class="svc-name">Custom Closets</div>
+        <div class="svc-desc">Maximized storage, perfectly organized</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🥘</div>
+        <div class="svc-name">Pantries</div>
+        <div class="svc-desc">Custom butler's pantries and walk-ins</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">💼</div>
+        <div class="svc-name">Home Offices</div>
+        <div class="svc-desc">Built-in desks, shelving, and storage</div>
+      </div>
+      <div class="service-box">
+        <div class="svc-icon">🔥</div>
+        <div class="svc-name">Fireplaces</div>
+        <div class="svc-desc">Custom surrounds and built-in cabinetry</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Close / Visit CTA -->
+  <div class="slide diff-slide" data-duration="8000">
+    <div class="diff-card">
+      <div class="eyebrow">You're Already Here</div>
+      <div class="diff-main">See the work.<br><em>Meet the team.</em></div>
+      <div class="rule" style="margin-top:24px;"></div>
+      <div class="diff-body">Hundreds of cabinet styles on display throughout this showroom. Our designers are here today to answer your questions and help you get started.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+  let timer = null;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsContainer.appendChild(d);
+  });
+
+  function getDots() { return document.querySelectorAll('.dot'); }
+
+  function showSlide(index) {
+    slides[current].classList.remove('active');
+    getDots()[current].classList.remove('active');
+
+    current = index % slides.length;
+    slides[current].classList.add('active');
+    getDots()[current].classList.add('active');
+
+    const duration = parseInt(slides[current].dataset.duration) || 8000;
+    clearTimeout(timer);
+    timer = setTimeout(() => showSlide(current + 1), duration);
+  }
+
+  showSlide(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transitions — Showroom Display (75")</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2e3b;
+    --teal: #4a8fa8;
+    --teal-light: #6ab4cc;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --gold: #c9a96e;
+    --dark: #0d1b24;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--dark);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* ─── SLIDESHOW CONTAINER ─── */
+  .slideshow {
+    width: 100vw; height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .slide.active { opacity: 1; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 4px;
+    background: var(--teal);
+    width: 0%;
+    transition: width linear;
+    z-index: 100;
+  }
+
+  /* ─── LOGO WATERMARK ─── */
+  .logo-mark {
+    position: fixed;
+    top: 36px; left: 48px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-mark .wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .logo-mark .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  /* ─── SLIDE TYPES ─── */
+
+  /* TYPE 1: Full bleed photo with text overlay */
+  .slide-photo {
+    background-size: cover;
+    background-position: center;
+  }
+  .slide-photo .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(13,27,36,0.85) 0%,
+      rgba(13,27,36,0.4) 50%,
+      rgba(13,27,36,0.1) 100%
+    );
+  }
+  .slide-photo .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+  }
+  .slide-photo .eyebrow {
+    font-size: clamp(12px, 1.2vw, 18px);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .slide-photo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6.5vw, 96px);
+    color: white;
+    line-height: 1.05;
+    max-width: 700px;
+    margin-bottom: 28px;
+  }
+  .slide-photo p {
+    font-size: clamp(16px, 1.8vw, 26px);
+    color: rgba(255,255,255,0.82);
+    max-width: 520px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .slide-photo .tag {
+    margin-top: 40px;
+    padding: 12px 28px;
+    border: 1.5px solid var(--teal);
+    color: var(--teal-light);
+    font-size: clamp(12px, 1.1vw, 16px);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* TYPE 2: Bold statement slide */
+  .slide-statement {
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .slide-statement .bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 28vw;
+    color: rgba(255,255,255,0.03);
+    font-style: italic;
+    white-space: nowrap;
+    top: 50%;
+    left: -5%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .slide-statement .accent-line {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 8px;
+    background: var(--teal);
+  }
+  .slide-statement .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 8%;
+  }
+  .slide-statement .eyebrow {
+    font-size: clamp(11px, 1.1vw, 16px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .slide-statement h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7.5vw, 110px);
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 32px;
+  }
+  .slide-statement h1 em {
+    color: var(--teal-light);
+    font-style: italic;
+  }
+  .slide-statement p {
+    font-size: clamp(18px, 2vw, 28px);
+    color: rgba(255,255,255,0.65);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .slide-statement .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--teal);
+    margin: 0 auto 32px;
+  }
+
+  /* TYPE 3: Before/After split */
+  .slide-split {
+    background: var(--dark);
+  }
+  .slide-split .half {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+  .slide-split .label {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    font-size: clamp(14px, 1.5vw, 22px);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 22px;
+    color: white;
+  }
+  .slide-split .label.before {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .slide-split .label.after {
+    background: var(--teal);
+  }
+  .slide-split .divider-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: white;
+    z-index: 10;
+    transform: translateX(-50%);
+  }
+  .slide-split .center-badge {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    background: white;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .slide-split .center-badge span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+    text-align: center;
+  }
+
+  /* TYPE 4: Stats / Proof */
+  .slide-stats {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a3545 100%);
+    overflow: hidden;
+  }
+  .slide-stats::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 80% 20%, rgba(74,143,168,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(74,143,168,0.08) 0%, transparent 40%);
+  }
+  .slide-stats .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 6%;
+    width: 100%;
+  }
+  .slide-stats .eyebrow {
+    font-size: clamp(11px, 1.1vw, 16px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 48px;
+    font-weight: 600;
+  }
+  .slide-stats .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+  .slide-stats .stat-item {
+    padding: 48px 32px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .slide-stats .stat-item:nth-child(2) {
+    background: rgba(74,143,168,0.15);
+    border-color: rgba(74,143,168,0.3);
+  }
+  .slide-stats .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(64px, 8vw, 112px);
+    color: white;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .slide-stats .stat-num span {
+    color: var(--teal-light);
+  }
+  .slide-stats .stat-label {
+    font-size: clamp(14px, 1.4vw, 20px);
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* TYPE 5: Service category card */
+  .slide-service {
+    overflow: hidden;
+  }
+  .slide-service .bg-photo {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.25) saturate(0.5);
+  }
+  .slide-service .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .slide-service .left .category {
+    font-size: clamp(11px, 1.1vw, 16px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .slide-service .left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5.5vw, 80px);
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .slide-service .left p {
+    font-size: clamp(16px, 1.6vw, 24px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .slide-service .right .feature-list {
+    list-style: none;
+  }
+  .slide-service .right .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: clamp(16px, 1.6vw, 22px);
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+  .slide-service .right .feature-list li::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* TYPE 6: Photo collage */
+  .slide-collage {
+    background: var(--dark);
+    display: grid !important;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+  .slide-collage .col-main {
+    grid-row: 1 / 3;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .slide-collage .col-sub {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .slide-collage .col-caption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px;
+    background: var(--navy);
+  }
+  .slide-collage .col-caption .cat {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .slide-collage .col-caption h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .slide-collage .col-caption p {
+    font-size: clamp(13px, 1.3vw, 18px);
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ─── PHOTO PLACEHOLDERS (remove when you have real photos) ─── */
+  .photo-kitchen-1 {
+    background: linear-gradient(145deg, #2c4a3e 0%, #1a3528 40%, #3d6b5a 100%);
+  }
+  .photo-kitchen-2 {
+    background: linear-gradient(145deg, #3a3a4a 0%, #22222e 40%, #4a4a5e 100%);
+  }
+  .photo-bath-1 {
+    background: linear-gradient(145deg, #3b3a32 0%, #26251e 40%, #5a5848 100%);
+  }
+  .photo-bath-2 {
+    background: linear-gradient(145deg, #2a3a4a 0%, #1c2a38 40%, #3a4e62 100%);
+  }
+  .photo-addition-1 {
+    background: linear-gradient(145deg, #3a2a1a 0%, #28200e 40%, #5e4a2a 100%);
+  }
+  .photo-specialty {
+    background: linear-gradient(145deg, #1a2a3a 0%, #101820 40%, #2a3e52 100%);
+  }
+
+  /* ─── PHOTO PLACEHOLDER ICONS ─── */
+  .photo-placeholder-label {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.6);
+    border: 1px dashed rgba(255,255,255,0.3);
+    padding: 8px 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { transform: scale(1.06); }
+    to { transform: scale(1); }
+  }
+
+  .slide.active .eyebrow { animation: slideUp 0.8s ease 0.3s both; }
+  .slide.active h1,
+  .slide.active h2 { animation: slideUp 0.9s ease 0.5s both; }
+  .slide.active p { animation: slideUp 0.8s ease 0.7s both; }
+  .slide.active .tag { animation: slideUp 0.8s ease 0.9s both; }
+  .slide.active .stats-grid { animation: slideUp 0.9s ease 0.5s both; }
+  .slide.active .divider { animation: fadeIn 0.6s ease 0.4s both; }
+  .slide.active .feature-list { animation: slideUp 0.9s ease 0.6s both; }
+  .slide.active .col-caption h3 { animation: slideUp 0.8s ease 0.4s both; }
+  .slide.active .col-caption p { animation: slideUp 0.8s ease 0.6s both; }
+  .slide.active .photo-kitchen-1,
+  .slide.active .photo-kitchen-2,
+  .slide.active .photo-bath-1,
+  .slide.active .col-main,
+  .slide.active .col-sub { animation: scaleIn 8s ease both; }
+</style>
+</head>
+<body>
+
+<div class="logo-mark">
+  <div class="dot"></div>
+  <div class="wordmark">Transitions</div>
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- SLIDE 1: Bold Statement -->
+  <div class="slide slide-statement active" data-duration="7000">
+    <div class="bg-text">Build</div>
+    <div class="accent-line"></div>
+    <div class="content">
+      <div class="eyebrow">True Design-Build · Since 2005</div>
+      <div class="divider"></div>
+      <h1>Most design firms<br>don't build.<br><em>We do.</em></h1>
+      <p>One integrated in-house team. Designers, carpenters, plumbers, and electricians — all Transitions employees.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Kitchen Photo Hero -->
+  <div class="slide slide-photo photo-kitchen-1" data-duration="8000">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="eyebrow">Kitchen Remodeling</div>
+      <h1>Built from<br>the ground up.<br>By our team.</h1>
+      <p>Full design-build service — layout, cabinetry, countertops, electrical, plumbing, and finishing. One contact, start to finish.</p>
+      <div class="tag">Replace with your kitchen photo</div>
+    </div>
+    <div class="photo-placeholder-label">Kitchen Photo Here</div>
+  </div>
+
+  <!-- SLIDE 3: Stats -->
+  <div class="slide slide-stats" data-duration="8000">
+    <div class="content">
+      <div class="eyebrow">By the Numbers</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">20<span>+</span></div>
+          <div class="stat-label">Years in Business</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span>1</span></div>
+          <div class="stat-label">Integrated Team</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Subcontractors</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Kitchen Collage -->
+  <div class="slide slide-collage" data-duration="9000">
+    <div class="col-main photo-kitchen-2">
+      <div class="photo-placeholder-label">Kitchen Main Photo</div>
+    </div>
+    <div class="col-sub photo-bath-1">
+      <div class="photo-placeholder-label">Detail Photo</div>
+    </div>
+    <div class="col-caption">
+      <div class="cat">Kitchen Services</div>
+      <h3>From materials only to full remodel</h3>
+      <p>Whether you need just the cabinets or a complete transformation — we have a service level that fits your project.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Bathroom Photo Hero -->
+  <div class="slide slide-photo photo-bath-2" data-duration="8000">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="eyebrow">Bathroom Remodeling</div>
+      <h1>Spa-like<br>bathrooms.<br>Built to last.</h1>
+      <p>From vanity upgrades to full gut renovations — designed and built by craftsmen who care about every detail.</p>
+      <div class="tag">Replace with your bathroom photo</div>
+    </div>
+    <div class="photo-placeholder-label">Bathroom Photo Here</div>
+  </div>
+
+  <!-- SLIDE 6: Service — Design Build Differentiator -->
+  <div class="slide slide-service" data-duration="9000">
+    <div class="bg-photo photo-kitchen-1"></div>
+    <div class="content">
+      <div class="left">
+        <div class="category">Why Transitions</div>
+        <h2>One team.<br>Zero<br>finger-pointing.</h2>
+        <p>When you call, you reach us — not a third party. Complete ownership of every outcome, every time.</p>
+      </div>
+      <div class="right">
+        <ul class="feature-list">
+          <li>One integrated in-house team</li>
+          <li>Single point of accountability</li>
+          <li>We own every outcome</li>
+          <li>Consistent craftsmanship — same crew, every project</li>
+          <li>20 years of relationships you can trust</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Specialty Spaces Photo -->
+  <div class="slide slide-photo photo-specialty" data-duration="8000">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="eyebrow">Specialty Spaces</div>
+      <h1>Every room<br>in your home.</h1>
+      <p>Custom closets · Pantries · Mudrooms · Home offices · Bars & entertainment · Fireplaces · Laundry rooms · Home additions</p>
+      <div class="tag">Replace with specialty space photo</div>
+    </div>
+    <div class="photo-placeholder-label">Specialty Space Photo Here</div>
+  </div>
+
+  <!-- SLIDE 8: Collage — Bathroom -->
+  <div class="slide slide-collage" data-duration="9000">
+    <div class="col-main photo-bath-1">
+      <div class="photo-placeholder-label">Bathroom Main Photo</div>
+    </div>
+    <div class="col-sub photo-addition-1">
+      <div class="photo-placeholder-label">Tile / Detail Photo</div>
+    </div>
+    <div class="col-caption">
+      <div class="cat">Bathroom Services</div>
+      <h3>From refresh to<br>full gut renovation</h3>
+      <p>Three service levels — designed to meet your project, your timeline, and your budget.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Bold Close -->
+  <div class="slide slide-statement" data-duration="7000">
+    <div class="bg-text">Home</div>
+    <div class="accent-line"></div>
+    <div class="content">
+      <div class="eyebrow">Visit Our Showroom</div>
+      <div class="divider"></div>
+      <h1>See the<br>work.<br><em>Meet the team.</em></h1>
+      <p>Hundreds of cabinet styles on display. Our designers are here to help you build something extraordinary.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: Addition / Other Services -->
+  <div class="slide slide-photo photo-addition-1" data-duration="8000">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="eyebrow">Home Additions</div>
+      <h1>Expand<br>what's possible.</h1>
+      <p>Home additions that feel like they've always been part of your home. Designed, permitted, and built by our team.</p>
+      <div class="tag">Replace with addition photo</div>
+    </div>
+    <div class="photo-placeholder-label">Addition Photo Here</div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const bar = document.getElementById('progressBar');
+  let current = 0;
+  let timer = null;
+  let barTimer = null;
+
+  function showSlide(index) {
+    slides[current].classList.remove('active');
+    current = index % slides.length;
+    slides[current].classList.add('active');
+
+    const duration = parseInt(slides[current].dataset.duration) || 7000;
+
+    // Progress bar
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bar.style.transition = `width ${duration}ms linear`;
+        bar.style.width = '100%';
+      });
+    });
+
+    clearTimeout(timer);
+    timer = setTimeout(() => showSlide(current + 1), duration);
+  }
+
+  showSlide(0);
+</script>
+</body>
+</html>
